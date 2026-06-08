@@ -1,393 +1,695 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Amish Kakka | Software & ML Engineer</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
-    <style>
-        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&amp;family=Space+Grotesk:wght@500;600&amp;display=swap');
-        
-        body {
-            font-family: 'Inter', system-ui, sans-serif;
-        }
-        .logo-font {
-            font-family: 'Space Grotesk', sans-serif;
-        }
-        
-        .project-card {
-            transition: all 0.3s ease;
-        }
-        .project-card:hover {
-            transform: translateY(-4px);
-            box-shadow: 0 20px 25px -5px rgb(0 0 0 / 0.1), 0 8px 10px -6px rgb(0 0 0 / 0.1);
-        }
-        
-        .nav-link {
-            position: relative;
-        }
-        .nav-link:after {
-            content: '';
-            position: absolute;
-            width: 0;
-            height: 2px;
-            bottom: -2px;
-            left: 0;
-            background-color: #22d3ee;
-            transition: width 0.3s ease;
-        }
-        .nav-link:hover:after {
-            width: 100%;
-        }
-    </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Amish Kakka</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Geist+Mono:wght@400;500&family=Instrument+Serif:ital@0;1&family=Geist:wght@300;400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --bg:      #111110;
+  --surface: #181817;
+  --border:  #252523;
+  --accent:  #e8d5a3;
+  --text:    #d4d0c8;
+  --dim:     #6b6860;
+  --white:   #f0ede6;
+}
+
+html { scroll-behavior: smooth; }
+
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: 'Geist', sans-serif;
+  font-weight: 300;
+  line-height: 1.6;
+  font-size: 15px;
+}
+
+/* ── NAV ── */
+nav {
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  background: rgba(17,17,16,.92);
+  backdrop-filter: blur(12px);
+  border-bottom: 1px solid var(--border);
+  z-index: 50;
+}
+.nav-inner {
+  max-width: 900px;
+  margin: auto;
+  padding: 0 2rem;
+  height: 56px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.nav-logo {
+  font-family: 'Instrument Serif', serif;
+  font-size: 1.15rem;
+  color: var(--white);
+  text-decoration: none;
+}
+.nav-right {
+  display: flex;
+  align-items: center;
+  gap: 2rem;
+}
+.nav-links {
+  display: flex;
+  gap: 1.75rem;
+  list-style: none;
+}
+.nav-links a {
+  font-family: 'Geist Mono', monospace;
+  font-size: .7rem;
+  letter-spacing: .08em;
+  color: var(--dim);
+  text-decoration: none;
+  transition: color .2s;
+}
+.nav-links a:hover { color: var(--accent); }
+.nav-resume {
+  font-family: 'Geist Mono', monospace;
+  font-size: .7rem;
+  letter-spacing: .06em;
+  color: var(--accent);
+  text-decoration: none;
+  border: 1px solid var(--accent);
+  padding: .3rem .8rem;
+  border-radius: 3px;
+  transition: all .2s;
+}
+.nav-resume:hover { background: var(--accent); color: #111; }
+
+/* ── LAYOUT ── */
+.page { max-width: 900px; margin: auto; padding: 0 2rem; }
+
+/* ── HERO ── */
+.hero {
+  padding: 140px 0 100px;
+  border-bottom: 1px solid var(--border);
+}
+.hero-eyebrow {
+  font-family: 'Geist Mono', monospace;
+  font-size: .7rem;
+  letter-spacing: .15em;
+  color: var(--dim);
+  margin-bottom: 1.25rem;
+}
+.hero-name {
+  font-family: 'Instrument Serif', serif;
+  font-size: clamp(3rem, 8vw, 5.5rem);
+  color: var(--white);
+  line-height: 1;
+  margin-bottom: 1.5rem;
+  font-weight: 400;
+}
+.hero-name em {
+  font-style: italic;
+  color: var(--accent);
+}
+.hero-desc {
+  max-width: 480px;
+  color: var(--dim);
+  font-size: .95rem;
+  line-height: 1.75;
+  margin-bottom: 2.5rem;
+}
+.hero-links {
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+  flex-wrap: wrap;
+}
+.hero-links a {
+  font-family: 'Geist Mono', monospace;
+  font-size: .72rem;
+  letter-spacing: .06em;
+  color: var(--dim);
+  text-decoration: none;
+  display: flex;
+  align-items: center;
+  gap: .4rem;
+  transition: color .2s;
+}
+.hero-links a:hover { color: var(--accent); }
+.hero-links .sep { color: var(--border); }
+
+/* ── SECTION ── */
+.section {
+  padding: 80px 0;
+  border-bottom: 1px solid var(--border);
+}
+.section:last-child { border-bottom: none; }
+.section-header {
+  display: flex;
+  align-items: baseline;
+  gap: 1rem;
+  margin-bottom: 3rem;
+}
+.section-num {
+  font-family: 'Geist Mono', monospace;
+  font-size: .7rem;
+  color: var(--dim);
+  letter-spacing: .1em;
+}
+.section-title {
+  font-family: 'Instrument Serif', serif;
+  font-size: 1.9rem;
+  color: var(--white);
+  font-weight: 400;
+}
+
+/* ── EXPERIENCE ── */
+.exp-list { display: flex; flex-direction: column; gap: 0; }
+.exp-item {
+  display: grid;
+  grid-template-columns: 160px 1fr;
+  gap: 2rem;
+  padding: 2rem 0;
+  border-top: 1px solid var(--border);
+}
+.exp-item:last-child { border-bottom: 1px solid var(--border); }
+.exp-left { padding-top: .1rem; }
+.exp-date {
+  font-family: 'Geist Mono', monospace;
+  font-size: .68rem;
+  color: var(--dim);
+  letter-spacing: .04em;
+  margin-bottom: .5rem;
+}
+.exp-company {
+  font-size: .8rem;
+  color: var(--dim);
+  line-height: 1.4;
+}
+.exp-role {
+  font-size: .95rem;
+  font-weight: 500;
+  color: var(--white);
+  margin-bottom: 1rem;
+}
+.exp-bullets { list-style: none; display: flex; flex-direction: column; gap: .65rem; }
+.exp-bullets li {
+  display: flex;
+  gap: .75rem;
+  font-size: .875rem;
+  color: var(--dim);
+  line-height: 1.65;
+}
+.exp-bullets li::before {
+  content: '—';
+  color: var(--border);
+  flex-shrink: 0;
+}
+.exp-bullets strong { color: var(--text); font-weight: 400; }
+
+/* ── PROJECT FILTERS ── */
+.filter-bar {
+  display: flex;
+  gap: .5rem;
+  flex-wrap: wrap;
+  margin-bottom: 2rem;
+}
+.filter-btn {
+  font-family: 'Geist Mono', monospace;
+  font-size: .68rem;
+  letter-spacing: .08em;
+  padding: .3rem .85rem;
+  border: 1px solid var(--border);
+  background: transparent;
+  color: var(--dim);
+  border-radius: 100px;
+  cursor: pointer;
+  transition: all .18s;
+}
+.filter-btn:hover { border-color: var(--accent); color: var(--accent); }
+.filter-btn.active { background: var(--accent); color: #111; border-color: var(--accent); }
+
+/* ── PROJECTS ── */
+.projects-list { display: flex; flex-direction: column; gap: 0; }
+.project-item {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 2rem;
+  align-items: start;
+  padding: 1.75rem 0;
+  border-top: 1px solid var(--border);
+  transition: opacity .2s;
+}
+.project-item:last-child { border-bottom: 1px solid var(--border); }
+.project-item.hidden { display: none; }
+.project-left { display: flex; flex-direction: column; gap: .6rem; }
+.project-tag-row { display: flex; gap: .4rem; align-items: center; flex-wrap: wrap; }
+.ptag {
+  font-family: 'Geist Mono', monospace;
+  font-size: .62rem;
+  letter-spacing: .08em;
+  padding: .15rem .55rem;
+  border-radius: 100px;
+  border: 1px solid;
+}
+.ptag-sys    { color: #7ab8a0; border-color: #7ab8a020; background: #7ab8a010; }
+.ptag-ml     { color: #b8a07a; border-color: #b8a07a20; background: #b8a07a10; }
+.ptag-agent  { color: #a07ab8; border-color: #a07ab820; background: #a07ab810; }
+.ptag-rag    { color: #7a9ab8; border-color: #7a9ab820; background: #7a9ab810; }
+.ptag-infra  { color: #b87a7a; border-color: #b87a7a20; background: #b87a7a10; }
+.ptag-res    { color: #8ab87a; border-color: #8ab87a20; background: #8ab87a10; }
+
+.project-name {
+  font-size: 1rem;
+  font-weight: 500;
+  color: var(--white);
+  line-height: 1.3;
+}
+.project-stack {
+  font-family: 'Geist Mono', monospace;
+  font-size: .68rem;
+  color: var(--dim);
+  letter-spacing: .02em;
+}
+.project-desc {
+  font-size: .85rem;
+  color: var(--dim);
+  line-height: 1.7;
+  max-width: 580px;
+}
+.project-desc strong { color: var(--text); font-weight: 400; }
+.project-link {
+  font-family: 'Geist Mono', monospace;
+  font-size: .7rem;
+  color: var(--dim);
+  text-decoration: none;
+  display: flex;
+  align-items: center;
+  gap: .35rem;
+  white-space: nowrap;
+  padding-top: .15rem;
+  transition: color .2s;
+  flex-shrink: 0;
+}
+.project-link:hover { color: var(--accent); }
+
+/* ── SKILLS ── */
+.skills-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 2.5rem;
+}
+.skill-group-label {
+  font-family: 'Geist Mono', monospace;
+  font-size: .65rem;
+  letter-spacing: .15em;
+  color: var(--dim);
+  margin-bottom: .9rem;
+}
+.skill-pills { display: flex; flex-wrap: wrap; gap: .4rem; }
+.pill {
+  font-family: 'Geist Mono', monospace;
+  font-size: .7rem;
+  padding: .25rem .65rem;
+  border: 1px solid var(--border);
+  color: var(--dim);
+  border-radius: 3px;
+  letter-spacing: .02em;
+  transition: all .18s;
+}
+.pill:hover { border-color: var(--accent); color: var(--accent); }
+
+/* ── EDUCATION ── */
+.edu-list { display: flex; flex-direction: column; }
+.edu-item {
+  display: grid;
+  grid-template-columns: 160px 1fr;
+  gap: 2rem;
+  padding: 1.75rem 0;
+  border-top: 1px solid var(--border);
+}
+.edu-item:last-child { border-bottom: 1px solid var(--border); }
+.edu-date { font-family: 'Geist Mono', monospace; font-size: .68rem; color: var(--dim); padding-top: .1rem; }
+.edu-degree { font-size: .95rem; font-weight: 500; color: var(--white); margin-bottom: .2rem; }
+.edu-school { font-size: .85rem; color: var(--dim); }
+.edu-minor  { font-family: 'Geist Mono', monospace; font-size: .65rem; color: var(--accent); margin-top: .4rem; letter-spacing: .06em; }
+
+/* ── FOOTER ── */
+footer {
+  padding: 3rem 0;
+  text-align: center;
+  border-top: 1px solid var(--border);
+}
+.footer-name {
+  font-family: 'Instrument Serif', serif;
+  font-size: 1.1rem;
+  color: var(--dim);
+  margin-bottom: .75rem;
+}
+.footer-icons { display: flex; justify-content: center; gap: 1.25rem; margin-bottom: 1.25rem; }
+.footer-icons a { color: var(--dim); font-size: 1rem; text-decoration: none; transition: color .2s; }
+.footer-icons a:hover { color: var(--accent); }
+.footer-copy { font-family: 'Geist Mono', monospace; font-size: .65rem; color: var(--border); letter-spacing: .08em; }
+
+@media (max-width: 640px) {
+  .nav-links { display: none; }
+  .exp-item, .edu-item { grid-template-columns: 1fr; gap: .75rem; }
+  .skills-grid { grid-template-columns: 1fr 1fr; }
+  .project-item { grid-template-columns: 1fr; gap: .75rem; }
+}
+</style>
 </head>
-<body class="bg-zinc-950 text-zinc-200">
-    <!-- NAVBAR -->
-    <nav class="fixed top-0 w-full bg-zinc-950 border-b border-zinc-800 z-50">
-        <div class="max-w-6xl mx-auto px-6 py-5 flex items-center justify-between">
-            
-            <div class="hidden md:flex items-center gap-9 text-sm font-medium">
-                <a href="#about" class="nav-link">ABOUT</a>
-                <a href="#experience" class="nav-link">EXPERIENCE</a>
-                <a href="#projects" class="nav-link">PROJECTS</a>
-                <a href="#skills" class="nav-link">SKILLS</a>
-                <a href="#education" class="nav-link">EDUCATION</a>
-            </div>
-            
-            <div class="flex items-center gap-4">
-                <a href="https://www.linkedin.com/in/amish-kakka-a925011ba" target="_black" class="text-xl hover:text-cyan-400 transition-colors">
-                    <i class="fab fa-linkedin"></i>
-                </a>
-                <a href="https://github.com/AmishKakka" target="_blank" class="text-xl hover:text-cyan-400 transition-colors">
-                    <i class="fab fa-github"></i>
-                </a>
-                <a href="https://drive.google.com/file/d/1ubdnN8ByNz6e7Hy4UhBR6wNSv5k_NPIH/view?usp=sharing" target="_blank"
-                   class="ml-4 px-6 py-3 bg-white text-black font-semibold rounded-2xl text-sm flex items-center gap-2 hover:bg-cyan-400 transition-all">
-                    <i class="fas fa-download"></i>
-                    RESUME
-                </a>
-            </div>
-        </div>
-    </nav>
+<body>
 
-    <section class="min-h-screen flex items-center pt-20">
-        <div class="max-w-6xl mx-auto px-6 grid md:grid-cols-2 gap-16 items-center">
-            <div class="space-y-8">
-                <div class="text-cyan-400 font-mono text-sm tracking-widest">ASPIRING SOFTWARE &amp; ML ENGINEER</div>
-                
-                <h1 class="text-7xl font-bold logo-font leading-none tracking-tighter text-white">
-                    Amish<br>Kakka
-                </h1>
-                
-                <p class="text-2xl text-zinc-400">
-                    I build fast, reliable, and intelligent systems.
-                </p>
-                
-                <div class="max-w-md text-zinc-300">
-                    Currently pursuing M.S. Software Engineering at Arizona State University. 
-                    Proven track record in production-grade AI, 25× performance gains, and real-world impact.
-                </div>
-                
-                <div class="flex flex-wrap gap-4">
-                    <a href="#projects" 
-                       class="px-8 py-4 bg-cyan-400 text-black font-semibold rounded-2xl flex items-center gap-3 hover:bg-white transition-all">
-                        SEE MY WORK
-                        <i class="fas fa-arrow-down"></i>
-                    </a>
-                    <a href="mailto:amishkakka@gmail.com" 
-                       class="px-8 py-4 border border-zinc-700 hover:border-cyan-400 rounded-2xl transition-all">
-                        LET'S CONNECT
-                    </a>
-                </div>
-                
-                <div class="flex items-center gap-8 pt-4">
-                    <div class="flex items-center gap-3 text-sm">
-                        <i class="fas fa-map-marker-alt text-cyan-400"></i>
-                        <span>Phoenix, AZ</span>
-                    </div>
-                    <a href="mailto:amishkakka@gmail.com" class="text-cyan-400 hover:underline">amishkakka@gmail.com</a>
-                </div>
-            </div>
-            
-            
-        </div>
-    </section>
+<nav>
+  <div class="nav-inner">
+    <div class="nav-right">
+      <ul class="nav-links">
+        <li><a href="#experience">Experience</a></li>
+        <li><a href="#projects">Projects</a></li>
+        <li><a href="#skills">Skills</a></li>
+        <li><a href="#education">Education</a></li>
+      </ul>
+      <a href="https://drive.google.com/file/d/1wrCNFel7ZtE4hsZ57zmjjbjUk-QanM7f/view?usp=sharing" target="_blank" class="nav-resume">Resume ↗</a>
+    </div>
+  </div>
+</nav>
 
-    <!-- ABOUT -->
-    <section id="about" class="py-24 border-t border-zinc-800">
-        <div class="max-w-6xl mx-auto px-6">
-            <div class="grid md:grid-cols-12 gap-16">
-                <div class="md:col-span-4">
-                    <h2 class="text-4xl font-semibold logo-font">About Me</h2>
-                </div>
-                <div class="md:col-span-8 text-lg text-zinc-300 leading-relaxed">
-                    <p class="mb-6">
-                        Aspiring Software &amp; ML Engineer with hands-on experience building production-grade systems.
-                        From high-performance C++ libraries (25× speedup) to agentic AI orchestration and scalable RAG pipelines on GCP.
-                    </p>
-                    <p>
-                        I love turning complex problems into clean, measurable solutions — whether it's reducing testing cycles by 65% 
-                        or cutting LLM fine-tuning parameters by 90%. Currently at Arizona State University pursuing my Master's.
-                    </p>
-                </div>
-            </div>
-        </div>
-    </section>
+<main>
 
-    <!-- EXPERIENCE -->
-    <section id="experience" class="py-24 bg-zinc-900">
-        <div class="max-w-6xl mx-auto px-6">
-            <h2 class="text-4xl font-semibold logo-font mb-12">Experience</h2>
-            
-            <div class="space-y-16">
-                <!-- Statcon -->
-                <div class="grid md:grid-cols-12 gap-8">
-                    <div class="md:col-span-3">
-                        <div class="text-sm font-medium text-zinc-400">Oct 2023 — May 2024</div>
-                        <div class="font-semibold">Software Engineer Intern</div>
-                        <div class="text-xs text-zinc-500">Statcon Electronics India Limited</div>
-                    </div>
-                    <div class="md:col-span-9">
-                        <h3 class="font-medium">Hybrid Inverter GUI Desktop Application</h3>
-                        <ul class="mt-4 space-y-2 text-zinc-300">
-                            <li class="flex gap-3"><span class="text-cyan-400">•</span> Designed system calibration pipelines using Python/PyQT framework integrating hybrid inverter systems</li>
-                            <li class="flex gap-3"><span class="text-cyan-400">•</span> Reduced test cycles by 65% (20 min → 7 min), increasing manufacturing throughput by 2.5×</li>
-                            <li class="flex gap-3"><span class="text-cyan-400">•</span> Reduced serial communication overhead by 40% while refining testing protocols with senior firmware engineers</li>
-                            <li class="flex gap-3"><span class="text-cyan-400">•</span> Developed validation modules for diagnostics, data schema, and edge-case failures</li>
-                        </ul>
-                    </div>
-                </div>
-                
-                <!-- Researcher -->
-                <div class="grid md:grid-cols-12 gap-8">
-                    <div class="md:col-span-3">
-                        <div class="text-sm font-medium text-zinc-400">Jan 2023 — May 2023</div>
-                        <div class="font-semibold">Student Researcher</div>
-                        <div class="text-xs text-zinc-500">Manipal University Jaipur</div>
-                    </div>
-                    <div class="md:col-span-9">
-                        <h3 class="font-medium">Medical X-ray Image Segmentation</h3>
-                        <ul class="mt-4 space-y-2 text-zinc-300">
-                            <li class="flex gap-3"><span class="text-cyan-400">•</span> Achieved 91.3% segmentation accuracy on 1,000+ X-ray images using Fast R-CNN (10% above baseline CNN)</li>
-                            <li class="flex gap-3"><span class="text-cyan-400">•</span> Managed full ML lifecycle: data annotation in Roboflow → training in Google Colab</li>
-                            <li class="flex gap-3"><span class="text-cyan-400">•</span> Authored technical documentation and presented findings for future department research</li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
+<!-- HERO -->
+<div class="page">
+<section class="hero">
+  <div class="hero-eyebrow">SOFTWARE & ML ENGINEER · TEMPE, AZ</div>
+  <h1 class="hero-name">Amish<br>Kakka</h1>
+  <p class="hero-desc">M.S. Software Engineering candidate at Arizona State University. I build production-grade AI systems, high-performance backends, and intelligent data pipelines.</p>
+  <div class="hero-links">
+    <a href="mailto:amishkakka@gmail.com"><i class="fas fa-envelope"></i> amishkakka@gmail.com</a>
+    <span class="sep">·</span>
+    <a href="https://linkedin.com/in/amish-kakka-a925011ba" target="_blank"><i class="fab fa-linkedin"></i> LinkedIn</a>
+    <span class="sep">·</span>
+    <a href="https://github.com/AmishKakka" target="_blank"><i class="fab fa-github"></i> GitHub</a>
+  </div>
+</section>
+</div>
 
-    <!-- PROJECTS -->
-    <section id="projects" class="py-24">
-        <div class="max-w-6xl mx-auto px-6">
-            <h2 class="text-4xl font-semibold logo-font mb-12">Projects</h2>
-            
-            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-                <div class="project-card bg-zinc-900 border border-zinc-800 rounded-3xl p-8">
-                    <div class="flex justify-between items-start mb-6">
-                        <h3 class="font-semibold text-xl">Real-Time Mobile SOS Application</h3>
-                        <span class="px-3 py-1 text-xs bg-sky-900 text-sky-300 rounded-full">Capstone</span>
-                    </div>
-                    <p class="text-sm text-zinc-400 mb-6">React Native • Node.js • Socket.io • AWS • Redis • Terraform</p>
-                    <p class="text-zinc-300 text-sm mb-8">
-                        Emergency response platform that dynamically routes community volunteers to victims. 
-                        Built fault-tolerant backend on AWS (ECS Fargate, ALB, custom VPC) with Terraform. 
-                        Achieved sub-second bi-directional GPS tracking using Uber’s H3 indexing + Redis Pub/Sub via WebSockets. 
-                    </p>
-                    <a href="https://github.com/AmishKakka/Mobile-SOS-Application" target="_blank" class="text-cyan-400 text-sm flex items-center gap-2">
-                        View on GitHub <i class="fas fa-arrow-right"></i>
-                    </a>
-                </div>
-                
-                <!-- Original 1 -->
-                <div class="project-card bg-zinc-900 border border-zinc-800 rounded-3xl p-8">
-                    <div class="flex justify-between items-start mb-6">
-                        <h3 class="font-semibold text-xl">High-Performance Quantitative Technical Indicators</h3>
-                        <span class="px-3 py-1 text-xs bg-emerald-900 text-emerald-300 rounded-full">C++</span>
-                    </div>
-                    <p class="text-sm text-zinc-400 mb-6">25× faster than NumPy • xtensor • C++</p>
-                    <p class="text-zinc-300 text-sm mb-8">Processes 10 years of market data in 0.099 ms. Python/yfinance binding layer.</p>
-                    <a href="https://github.com/AmishKakka/Technical-Indicators" target="_blank" class="text-cyan-400 text-sm flex items-center gap-2">
-                        View on GitHub <i class="fas fa-arrow-right"></i>
-                    </a>
-                </div>
-                
-                <!-- Original 2 -->
-                <div class="project-card bg-zinc-900 border border-zinc-800 rounded-3xl p-8">
-                    <div class="flex justify-between items-start mb-6">
-                        <h3 class="font-semibold text-xl">Finance Agent</h3>
-                        <span class="px-3 py-1 text-xs bg-violet-900 text-violet-300 rounded-full">LangGraph</span>
-                    </div>
-                    <p class="text-sm text-zinc-400 mb-6">Multi-agent system • LangGraph • Gemini 2.5 • DuckDB • DuckDuckGo Search </p>
-                    <p class="text-zinc-300 text-sm mb-8">Intelligent financial research &amp; report generation with Supervisor-Controller architecture.</p>
-                    <a href="https://github.com/AmishKakka/finance-agent" target="_blank" class="text-cyan-400 text-sm flex items-center gap-2">
-                        View on GitHub <i class="fas fa-arrow-right"></i>
-                    </a>
-                </div>
-                
-                <!-- Original 3 -->
-                <div class="project-card bg-zinc-900 border border-zinc-800 rounded-3xl p-8">
-                    <div class="flex justify-between items-start mb-6">
-                        <h3 class="font-semibold text-xl">Document Summarizer App</h3>
-                        <span class="px-3 py-1 text-xs bg-amber-900 text-amber-300 rounded-full">RAG • GCP</span>
-                    </div>
-                    <p class="text-sm text-zinc-400 mb-6">FastAPI • Pinecone • Gemini • Firebase Auth</p>
-                    <p class="text-zinc-300 text-sm mb-8">Secure multi-user RAG web app. Auto-scales to 100+ users on Google Cloud.</p>
-                    <a href="https://github.com/AmishKakka/Document-Summarizer" target="_blank" class="text-cyan-400 text-sm flex items-center gap-2">
-                        View on GitHub <i class="fas fa-arrow-right"></i>
-                    </a>
-                </div>
-                
-                <div class="project-card bg-zinc-900 border border-zinc-800 rounded-3xl p-8">
-                    <div class="flex justify-between items-start mb-6">
-                        <h3 class="font-semibold text-xl">MLOps Pipeline</h3>
-                        <span class="px-3 py-1 text-xs bg-blue-900 text-blue-300 rounded-full">MLOps</span>
-                    </div>
-                    <p class="text-sm text-zinc-400 mb-6">Gemini model • Scikit-learn • Pydantic • Docker</p>
-                    <p class="text-zinc-300 text-sm mb-8">Fully automated ML lifecycle using Gemini 2.5 Flash model. Planner-Validator-Executor architecture that turns natural language goals into production-ready sklearn pipelines.</p>
-                    <a href="https://github.com/AmishKakka/mlops_pipeline" target="_blank" class="text-cyan-400 text-sm flex items-center gap-2">
-                        View Repository <i class="fas fa-arrow-right"></i>
-                    </a>
-                </div>
-                
-                <div class="project-card bg-zinc-900 border border-zinc-800 rounded-3xl p-8">
-                    <div class="flex justify-between items-start mb-6">
-                        <h3 class="font-semibold text-xl">FLAN-T5 Fine-Tuning with LoRA</h3>
-                        <span class="px-3 py-1 text-xs bg-purple-900 text-purple-300 rounded-full">LLM</span>
-                    </div>
-                    <p class="text-sm text-zinc-400 mb-6">Hugging Face • LoRA • SciQ Dataset</p>
-                    <p class="text-zinc-300 text-sm mb-8">Achieved reasoning capability (physics, chemistry, biology) while training only 0.1117% of parameters using Low-Rank Adaptation.</p>
-                    <a href="https://github.com/AmishKakka/FineTuning" target="_blank" class="text-cyan-400 text-sm flex items-center gap-2">
-                        View Repository <i class="fas fa-arrow-right"></i>
-                    </a>
-                </div>
-                
-                <div class="project-card bg-zinc-900 border border-zinc-800 rounded-3xl p-8">
-                    <div class="flex justify-between items-start mb-6">
-                        <h3 class="font-semibold text-xl">Rethinking GAN Architecture</h3>
-                        <span class="px-3 py-1 text-xs bg-rose-900 text-rose-300 rounded-full">Research</span>
-                    </div>
-                    <p class="text-sm text-zinc-400 mb-6">Image Embeddings • Content Loss • PyTorch</p>
-                    <p class="text-zinc-300 text-sm mb-8">Experimental GAN modifications: replaced raw noise with image embeddings and cross-entropy with content loss for better image generation quality. Includes Medium article.</p>
-                    <a href="https://github.com/AmishKakka/rethinking_some_parts_of_GAN" target="_blank" class="text-cyan-400 text-sm flex items-center gap-2">
-                        View Repository <i class="fas fa-arrow-right"></i>
-                    </a>
-                </div>
-            </div>
-        </div>
-    </section>
+<!-- EXPERIENCE -->
+<div class="page">
+<section class="section" id="experience">
+  <div class="section-header">
+    <span class="section-num">01</span>
+    <h2 class="section-title">Experience</h2>
+  </div>
+  <div class="exp-list">
 
-    <!-- SKILLS -->
-    <section id="skills" class="py-24 bg-zinc-900">
-        <div class="max-w-6xl mx-auto px-6">
-            <h2 class="text-4xl font-semibold logo-font mb-12">Technical Skills</h2>
-            
-            <div class="grid grid-cols-2 md:grid-cols-4 gap-8">
-                <div>
-                    <h4 class="font-medium mb-4 text-cyan-400">Languages</h4>
-                    <div class="flex flex-wrap gap-2">
-                        <span class="bg-zinc-800 px-4 py-2 rounded-2xl text-sm">Python</span>
-                        <span class="bg-zinc-800 px-4 py-2 rounded-2xl text-sm">C++</span>
-                        <span class="bg-zinc-800 px-4 py-2 rounded-2xl text-sm">TypeScript</span>
-                        <span class="bg-zinc-800 px-4 py-2 rounded-2xl text-sm">SQL</span>
-                        <span class="bg-zinc-800 px-4 py-2 rounded-2xl text-sm">JavaScript</span>
-                    </div>
-                </div>
-                <div>
-                    <h4 class="font-medium mb-4 text-cyan-400">Cloud &amp; Infrastructure</h4>
-                    <div class="flex flex-wrap gap-2">
-                        <span class="bg-zinc-800 px-4 py-2 rounded-2xl text-sm">FastAPI</span>
-                        <span class="bg-zinc-800 px-4 py-2 rounded-2xl text-sm">CI/CD</span>
-                        <span class="bg-zinc-800 px-4 py-2 rounded-2xl text-sm">Docker</span>
-                        <span class="bg-zinc-800 px-4 py-2 rounded-2xl text-sm">AWS (EC2, Lambda, ECS)</span>
-                        <span class="bg-zinc-800 px-4 py-2 rounded-2xl text-sm">GCP</span>
-                        <span class="bg-zinc-800 px-4 py-2 rounded-2xl text-sm">Pinecone</span>
-                        <span class="bg-zinc-800 px-4 py-2 rounded-2xl text-sm">Streamlit</span>
-                    </div>
-                </div>
-                <div>
-                    <h4 class="font-medium mb-4 text-cyan-400">ML &amp; AI</h4>
-                    <div class="flex flex-wrap gap-2">
-                        <span class="bg-zinc-800 px-4 py-2 rounded-2xl text-sm">Agentic AI</span>
-                        <span class="bg-zinc-800 px-4 py-2 rounded-2xl text-sm">PyTorch</span>
-                        <span class="bg-zinc-800 px-4 py-2 rounded-2xl text-sm">LangGraph</span>
-                        <span class="bg-zinc-800 px-4 py-2 rounded-2xl text-sm">Scikit-learn</span>
-                        <span class="bg-zinc-800 px-4 py-2 rounded-2xl text-sm">RAG</span>
-                        <span class="bg-zinc-800 px-4 py-2 rounded-2xl text-sm">Tensorflow</span>
-                    </div>
-                </div>
-                <div>
-                    <h4 class="font-medium mb-4 text-cyan-400">More</h4>
-                    <div class="flex flex-wrap gap-2">
-                        <span class="bg-zinc-800 px-4 py-2 rounded-2xl text-sm">OpenCV</span>
-                        <span class="bg-zinc-800 px-4 py-2 rounded-2xl text-sm">Neo4j</span>
-                        <span class="bg-zinc-800 px-4 py-2 rounded-2xl text-sm">xtensor</span>
-                        <span class="bg-zinc-800 px-4 py-2 rounded-2xl text-sm">Kubernetes</span>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
+    <div class="exp-item">
+      <div class="exp-left">
+        <div class="exp-date">Oct 2023 — May 2024</div>
+        <div class="exp-company">Statcon Electronics<br>India Limited<br>Noida, India</div>
+      </div>
+      <div>
+        <div class="exp-role">Software Engineer Intern</div>
+        <ul class="exp-bullets">
+          <li>Built a <strong>Python/PyQT desktop application</strong> for solar/hybrid inverter calibration with embedded real-time sensor anomaly detection — preventing miscalibrated devices from reaching the field, <strong>reducing test cycles 65%</strong> (20m → 7m) and <strong>increasing manufacturing throughput 2.5×.</strong></li>
+          <li>Engineered <strong>AWS Lambda functions (JavaScript)</strong> to ingest and store <strong>32-channel inverter sensor telemetry</strong> from field-deployed devices; implemented data integrity validation to catch corrupted readings and surfaced time-period filtered per-device views inside the PyQT application.</li>
+          <li>Collaborated with firmware engineers to diagnose serial communication bottlenecks, <strong>cutting per-device test time by 40%</strong>; presented the optimized protocol to engineering leads, who adopted it across the test infrastructure.</li>
+        </ul>
+      </div>
+    </div>
 
-    <!-- EDUCATION -->
-    <section id="education" class="py-24">
-        <div class="max-w-6xl mx-auto px-6">
-            <h2 class="text-4xl font-semibold logo-font mb-12">Education</h2>
-            
-            <div class="space-y-12">
-                <div class="flex flex-col md:flex-row gap-8">
-                    <div class="md:w-64">
-                        <div class="font-medium">Aug 2024 — May 2026</div>
-                        <div class="text-sm text-zinc-400">Arizona State University, Tempe, AZ</div>
-                    </div>
-                    <div>
-                        <div class="font-semibold text-xl">M.S. Software Engineering</div>
-                        <div class="text-zinc-400">Minor in Data Analytics</div>
-                    </div>
-                </div>
-                
-                <div class="flex flex-col md:flex-row gap-8">
-                    <div class="md:w-64">
-                        <div class="font-medium">Aug 2020 — May 2024</div>
-                        <div class="text-sm text-zinc-400">Manipal University Jaipur, India</div>
-                    </div>
-                    <div>
-                        <div class="font-semibold text-xl">B.Tech Computer Science Engineering</div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
+    <div class="exp-item">
+      <div class="exp-left">
+        <div class="exp-date">Jan 2023 — May 2023</div>
+        <div class="exp-company">Manipal University<br>Jaipur, India</div>
+      </div>
+      <div>
+        <div class="exp-role">Student Researcher</div>
+        <ul class="exp-bullets">
+          <li>Designed a <strong>Fast R-CNN pipeline</strong> to detect misalignment across hip, knee, and ankle X-rays (1,000+ images); chose region-proposal architecture for separating overlapping joint boundaries, achieving <strong>91.3% segmentation accuracy.</strong></li>
+          <li>Managed the full lifecycle independently — annotation (Roboflow), training, iterative baseline comparison, and documentation — delivering a reproducible framework presented to faculty.</li>
+        </ul>
+      </div>
+    </div>
 
-    <!-- FOOTER -->
-    <footer class="bg-black py-16">
-        <div class="max-w-6xl mx-auto px-6 text-center">
-            <p class="text-zinc-400">Made with clean code and a lot of coffee ☕</p>
-            <div class="mt-8 flex justify-center gap-8 text-3xl">
-                <a href="https://www.linkedin.com/in/amish-kakka-a925011ba" target="_blank" class="hover:text-cyan-400"><i class="fab fa-linkedin"></i></a>
-                <a href="https://github.com/AmishKakka" target="_blank" class="hover:text-cyan-400"><i class="fab fa-github"></i></a>
-            </div>
-            <p class="text-xs text-zinc-500 mt-12">© 2026 Amish Kakka</p>
-        </div>
-    </footer>
+  </div>
+</section>
+</div>
 
-    <script>
-        // Simple smooth scrolling
-        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', function (e) {
-                if (this.getAttribute('href') !== '#') {
-                    e.preventDefault();
-                    document.querySelector(this.getAttribute('href')).scrollIntoView({
-                        behavior: 'smooth'
-                    });
-                }
-            });
-        });
-        
-        // Tailwind ready
-        console.log('%c portfolio loaded successfully!', 'color:#22d3ee; font-family:monospace');
-    </script>
+<!-- PROJECTS -->
+<div class="page">
+<section class="section" id="projects">
+  <div class="section-header">
+    <span class="section-num">02</span>
+    <h2 class="section-title">Projects</h2>
+  </div>
+
+  <div class="filter-bar">
+    <button class="filter-btn active" data-filter="all">All</button>
+    <button class="filter-btn" data-filter="systems">Systems</button>
+    <button class="filter-btn" data-filter="ml">ML / LLM</button>
+    <button class="filter-btn" data-filter="agent">Agents</button>
+    <button class="filter-btn" data-filter="infra">Cloud / Infra</button>
+    <button class="filter-btn" data-filter="research">Research</button>
+  </div>
+
+  <div class="projects-list">
+
+    <div class="project-item" data-tags="systems infra">
+      <div class="project-left">
+        <div class="project-tag-row">
+          <span class="ptag ptag-sys">SYSTEMS</span>
+          <span class="ptag ptag-infra">CLOUD</span>
+        </div>
+        <div class="project-name">Real-Time Mobile SOS Application</div>
+        <div class="project-stack">React Native · Node.js · Socket.io · AWS ECS · Redis · Terraform</div>
+        <div class="project-desc">Emergency response platform routing community volunteers to victims in real time. Provisioned fault-tolerant <strong>AWS backend (EC2 and custom VPC)</strong> with Terraform. Achieved <strong>sub-second bi-directional GPS tracking</strong> using Uber's H3 geospatial indexing and Redis ElastiCache Pub/Sub over WebSockets.</div>
+      </div>
+      <a href="https://github.com/AmishKakka/Mobile-SOS-Application" target="_blank" class="project-link">GitHub ↗</a>
+    </div>
+
+    <div class="project-item" data-tags="systems">
+      <div class="project-left">
+        <div class="project-tag-row">
+          <span class="ptag ptag-sys">SYSTEMS · C++</span>
+        </div>
+        <div class="project-name">High-Performance Quantitative Indicators</div>
+        <div class="project-stack">C++17 · xtensor · CMake · Python · yfinance</div>
+        <div class="project-desc">Low-latency C++ library using <strong>O(1) rolling-window logic</strong> and cache-aware memory layout. Processes 10 years of market data in <strong>0.099 ms</strong> — a <strong>25× speedup</strong> over NumPy, validated through systematic profiling and benchmarking.</div>
+      </div>
+      <a href="https://github.com/AmishKakka/Technical-Indicators" target="_blank" class="project-link">GitHub ↗</a>
+    </div>
+
+    <div class="project-item" data-tags="agent ml">
+      <div class="project-left">
+        <div class="project-tag-row">
+          <span class="ptag ptag-agent">MULTI-AGENT</span>
+          <span class="ptag ptag-ml">LLM</span>
+        </div>
+        <div class="project-name">Agentic Finance Research System</div>
+        <div class="project-stack">Python · LangGraph · Gemini 2.5 · yfinance · DuckDuckGo</div>
+        <div class="project-desc">Multi-agent financial research system using <strong>Supervisor-Controller architecture in LangGraph</strong> to decompose queries across stock screening, sector analysis, and earnings summarization. Live web retrieval grounds outputs and eliminates hallucination. Generates <strong>comprehensive reports in under 10 seconds.</strong></div>
+      </div>
+      <a href="https://github.com/AmishKakka/finance-agent" target="_blank" class="project-link">GitHub ↗</a>
+    </div>
+
+    <div class="project-item" data-tags="infra ml">
+      <div class="project-left">
+        <div class="project-tag-row">
+          <span class="ptag ptag-rag">RAG</span>
+          <span class="ptag ptag-infra">GCP</span>
+        </div>
+        <div class="project-name">Document Summarizer Microservice</div>
+        <div class="project-stack">FastAPI · Pinecone · GCP Cloud Run · Firebase Auth · Gemini 2.5</div>
+        <div class="project-desc">Fault-tolerant RAG pipeline on <strong>Google Cloud Run</strong>. Maintained <strong>1.2s response latency</strong> via optimized Pinecone vector indexing and context-window engineering for Gemini 2.5 Flash-Lite.</div>
+      </div>
+      <a href="https://github.com/AmishKakka/Document-Summarizer" target="_blank" class="project-link">GitHub ↗</a>
+    </div>
+
+    <div class="project-item" data-tags="agent infra">
+      <div class="project-left">
+        <div class="project-tag-row">
+          <span class="ptag ptag-agent">AGENTIC</span>
+          <span class="ptag ptag-infra">MLOPS</span>
+        </div>
+        <div class="project-name">Agentic MLOps Pipeline</div>
+        <div class="project-stack">Python · Gemini 2.5 Flash · Scikit-learn · Pydantic · Docker</div>
+        <div class="project-desc">Fully automated ML lifecycle using a <strong>Planner–Validator–Executor agent architecture</strong> that converts natural language goals into production-ready Scikit-learn pipelines — handling dataset analysis, feature engineering, model selection, and evaluation end to end.</div>
+      </div>
+      <a href="https://github.com/AmishKakka/mlops_pipeline" target="_blank" class="project-link">GitHub ↗</a>
+    </div>
+
+    <div class="project-item" data-tags="ml">
+      <div class="project-left">
+        <div class="project-tag-row">
+          <span class="ptag ptag-ml">LLM · PEFT</span>
+        </div>
+        <div class="project-name">Fine-Tuning with LoRA</div>
+        <div class="project-stack">Python · PyTorch · Hugging Face · PEFT · SciQ Dataset</div>
+        <div class="project-desc">Fine-tuned Qwen2.5 model on a <strong>15K+ record domain-specific medical dataset</strong> using LoRA/PEFT, achieving <strong>90% reduction in trainable parameters</strong>. Trained in <strong>under 6 hours</strong> on Nvidia T4.</div>
+      </div>
+      <a href="https://github.com/AmishKakka/FineTuning" target="_blank" class="project-link">GitHub ↗</a>
+    </div>
+
+    <div class="project-item" data-tags="research ml">
+      <div class="project-left">
+        <div class="project-tag-row">
+          <span class="ptag ptag-res">RESEARCH</span>
+          <span class="ptag ptag-ml">DEEP LEARNING</span>
+        </div>
+        <div class="project-name">Rethinking GAN Architecture</div>
+        <div class="project-stack">PyTorch · Image Embeddings · Content Loss · Medium Article</div>
+        <div class="project-desc">Experimental GAN modifications exploring whether replacing raw noise with <strong>image embeddings</strong> and cross-entropy with <strong>content/perceptual loss</strong> improves generation quality. Includes a written analysis on Medium documenting findings, failure modes, and open questions.</div>
+      </div>
+      <a href="https://github.com/AmishKakka/rethinking_some_parts_of_GAN" target="_blank" class="project-link">GitHub ↗</a>
+    </div>
+
+  </div>
+</section>
+</div>
+
+<!-- SKILLS -->
+<div class="page">
+<section class="section" id="skills">
+  <div class="section-header">
+    <span class="section-num">03</span>
+    <h2 class="section-title">Skills</h2>
+  </div>
+  <div class="skills-grid">
+    <div>
+      <div class="skill-group-label">LANGUAGES</div>
+      <div class="skill-pills">
+        <span class="pill">Python</span>
+        <span class="pill">C++17/20</span>
+        <span class="pill">TypeScript</span>
+        <span class="pill">JavaScript</span>
+        <span class="pill">SQL</span>
+      </div>
+    </div>
+    <div>
+      <div class="skill-group-label">AI & ML</div>
+      <div class="skill-pills">
+        <span class="pill">PyTorch</span>
+        <span class="pill">LangGraph</span>
+        <span class="pill">Hugging Face</span>
+        <span class="pill">RAG</span>
+        <span class="pill">LoRA / PEFT</span>
+        <span class="pill">TensorFlow</span>
+        <span class="pill">Scikit-learn</span>
+        <span class="pill">OpenCV</span>
+      </div>
+    </div>
+    <div>
+      <div class="skill-group-label">BACKEND & APIs</div>
+      <div class="skill-pills">
+        <span class="pill">FastAPI</span>
+        <span class="pill">Node.js</span>
+        <span class="pill">REST APIs</span>
+        <span class="pill">PostgreSQL</span>
+        <span class="pill">Redis</span>
+        <span class="pill">Pinecone</span>
+      </div>
+    </div>
+    <div>
+      <div class="skill-group-label">CLOUD & INFRA</div>
+      <div class="skill-pills">
+        <span class="pill">GCP Cloud Run</span>
+        <span class="pill">AWS EC2</span>
+        <span class="pill">AWS Lambda</span>
+        <span class="pill">AWS ECS</span>
+        <span class="pill">Docker</span>
+        <span class="pill">Kubernetes</span>
+        <span class="pill">Terraform</span>
+        <span class="pill">Firebase Auth</span>
+        <span class="pill">CI/CD</span>
+      </div>
+    </div>
+    <div>
+      <div class="skill-group-label">SYSTEMS</div>
+      <div class="skill-pills">
+        <span class="pill">xtensor</span>
+        <span class="pill">CMake</span>
+        <span class="pill">Linux</span>
+        <span class="pill">Git</span>
+        <span class="pill">Neo4j</span>
+        <span class="pill">Roboflow</span>
+      </div>
+    </div>
+  </div>
+</section>
+</div>
+
+<!-- EDUCATION -->
+<div class="page">
+<section class="section" id="education">
+  <div class="section-header">
+    <span class="section-num">04</span>
+    <h2 class="section-title">Education</h2>
+  </div>
+  <div class="edu-list">
+    <div class="edu-item">
+      <div class="edu-date">Aug 2024 — May 2026</div>
+      <div>
+        <div class="edu-degree">M.S. Software Engineering</div>
+        <div class="edu-school">Arizona State University · Tempe, AZ</div>
+        <div class="edu-minor">MINOR IN DATA ANALYTICS</div>
+      </div>
+    </div>
+    <div class="edu-item">
+      <div class="edu-date">Aug 2020 — May 2024</div>
+      <div>
+        <div class="edu-degree">B.Tech Computer Science Engineering</div>
+        <div class="edu-school">Manipal University Jaipur · Jaipur, India</div>
+      </div>
+    </div>
+  </div>
+</section>
+</div>
+
+</main>
+
+<footer>
+  <div class="page">
+    <div class="footer-name">Amish Kakka</div>
+    <div class="footer-icons">
+      <a href="https://linkedin.com/in/amish-kakka-a925011ba" target="_blank"><i class="fab fa-linkedin"></i></a>
+      <a href="https://github.com/AmishKakka" target="_blank"><i class="fab fa-github"></i></a>
+      <a href="mailto:amishkakka@gmail.com"><i class="fas fa-envelope"></i></a>
+    </div>
+    <div class="footer-copy">© 2026 AMISH KAKKA</div>
+  </div>
+</footer>
+
+<script>
+  // Filter logic
+  const btns = document.querySelectorAll('.filter-btn');
+  const items = document.querySelectorAll('.project-item');
+
+  btns.forEach(btn => {
+    btn.addEventListener('click', () => {
+      btns.forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      const f = btn.dataset.filter;
+      items.forEach(item => {
+        const tags = item.dataset.tags || '';
+        if (f === 'all' || tags.includes(f)) {
+          item.classList.remove('hidden');
+        } else {
+          item.classList.add('hidden');
+        }
+      });
+    });
+  });
+
+  // Smooth scroll
+  document.querySelectorAll('a[href^="#"]').forEach(a => {
+    a.addEventListener('click', e => {
+      const t = document.querySelector(a.getAttribute('href'));
+      if (t) { e.preventDefault(); t.scrollIntoView({ behavior: 'smooth' }); }
+    });
+  });
+</script>
 </body>
 </html>
